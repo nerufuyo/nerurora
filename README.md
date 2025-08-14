@@ -1,4 +1,4 @@
-# 💖 Kaysa - Romantic Animated Demo
+# 💖 Romantic Animated Demo
 
 A beautiful, interactive romantic demonstration featuring Matrix rain effects, particle systems, elegant typography, and audio integration. Created with love and modern web technologies.
 
