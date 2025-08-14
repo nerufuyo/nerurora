@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Dancing_Script, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
@@ -20,8 +20,13 @@ export const metadata: Metadata = {
   description: "A romantic animated demo with Matrix effects, particle systems, and beautiful typography, dedicated to Kaysa",
   keywords: ["romantic", "animation", "demo", "matrix", "particles", "love"],
   authors: [{ name: "Created with love" }],
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   robots: "noindex, nofollow",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({

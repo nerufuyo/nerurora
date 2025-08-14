@@ -7,6 +7,7 @@ import { ShapeFormation } from '@/components/ShapeFormation';
 import { TextReveal } from '@/components/TextReveal';
 import { LyricsDisplay } from '@/components/LyricsDisplay';
 import { AudioController } from '@/components/AudioController';
+import { AnimationControls } from '@/components/AnimationControls';
 import { Button } from '@/components/ui/Button';
 import { useAudio } from '@/hooks/useAudio';
 import { useAnimationSequence } from '@/hooks/useAnimationSequence';
@@ -21,13 +22,15 @@ export default function RomanticDemo() {
   const [currentPhase, setCurrentPhase] = useState<AnimationPhase>('idle');
   const [hasStarted, setHasStarted] = useState(false);
   const [showAudioController, setShowAudioController] = useState(false);
+  const [animationSpeed, setAnimationSpeed] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
 
-  // Audio setup - using a placeholder path for now
+  // Audio setup - disabled for now to prevent 404 errors
   const audioConfig = {
-    src: '/audio/background-music.mp3', // This would need to be added to public/audio
+    src: '', // Empty src to prevent loading attempts
     volume: AUDIO_CONFIG.DEFAULT_VOLUME,
     loop: AUDIO_CONFIG.LOOP,
-    preload: AUDIO_CONFIG.PRELOAD,
+    preload: false, // Prevent preloading
     autoplay: false
   };
 
@@ -53,11 +56,26 @@ export default function RomanticDemo() {
     startSequence();
     setShowAudioController(true);
     
-    // Start audio after a short delay
-    setTimeout(() => {
-      audio.fadeIn(AUDIO_CONFIG.FADE_DURATION);
-    }, 2000);
+    // Audio would start here when audio file is available
+    // setTimeout(() => {
+    //   audio.fadeIn(AUDIO_CONFIG.FADE_DURATION);
+    // }, 1000);
   }, [startSequence, audio]);
+
+  // Handle speed change
+  const handleSpeedChange = useCallback((speed: number) => {
+    setAnimationSpeed(speed);
+  }, []);
+
+  // Handle skip to end
+  const handleSkipToEnd = useCallback(() => {
+    setCurrentPhase('lyrics');
+  }, []);
+
+  // Handle pause toggle
+  const handlePauseToggle = useCallback(() => {
+    setIsPaused(prev => !prev);
+  }, []);
 
   // Handle phase transitions
   const handlePhaseComplete = useCallback((phase: AnimationPhase) => {
@@ -135,30 +153,30 @@ export default function RomanticDemo() {
 
       {/* Matrix Effect */}
       <MatrixEffect
-        isActive={currentPhase === 'matrix'}
-        duration={ANIMATION_DURATIONS.MATRIX_EFFECT}
+        isActive={currentPhase === 'matrix' && !isPaused}
+        duration={ANIMATION_DURATIONS.MATRIX_EFFECT / animationSpeed}
         onComplete={() => handlePhaseComplete('matrix')}
       />
 
       {/* Shape Formations */}
       <ShapeFormation
         shape="heart"
-        isActive={currentPhase === 'heart'}
-        duration={ANIMATION_DURATIONS.SHAPE_FORMATION}
+        isActive={currentPhase === 'heart' && !isPaused}
+        duration={ANIMATION_DURATIONS.SHAPE_FORMATION / animationSpeed}
         onComplete={() => handlePhaseComplete('heart')}
       />
 
       <ShapeFormation
         shape="star"
-        isActive={currentPhase === 'star'}
-        duration={ANIMATION_DURATIONS.SHAPE_FORMATION}
+        isActive={currentPhase === 'star' && !isPaused}
+        duration={ANIMATION_DURATIONS.SHAPE_FORMATION / animationSpeed}
         onComplete={() => handlePhaseComplete('star')}
       />
 
       <ShapeFormation
         shape="fireworks"
-        isActive={currentPhase === 'fireworks'}
-        duration={ANIMATION_DURATIONS.SHAPE_FORMATION}
+        isActive={currentPhase === 'fireworks' && !isPaused}
+        duration={ANIMATION_DURATIONS.SHAPE_FORMATION / animationSpeed}
         onComplete={() => handlePhaseComplete('fireworks')}
       />
 
@@ -167,8 +185,8 @@ export default function RomanticDemo() {
         title="Kaysa"
         subtitle={selectedQuote.author}
         quote={selectedQuote.text}
-        isActive={currentPhase === 'text'}
-        duration={ANIMATION_DURATIONS.TEXT_REVEAL}
+        isActive={currentPhase === 'text' && !isPaused}
+        duration={ANIMATION_DURATIONS.TEXT_REVEAL / animationSpeed}
         onComplete={() => handlePhaseComplete('text')}
       />
 
@@ -176,6 +194,16 @@ export default function RomanticDemo() {
       <LyricsDisplay
         currentLyric={currentLyric}
         isActive={currentPhase === 'lyrics'}
+      />
+
+      {/* Animation Controls */}
+      <AnimationControls
+        isVisible={hasStarted}
+        onSpeedChange={handleSpeedChange}
+        onSkipToEnd={handleSkipToEnd}
+        currentSpeed={animationSpeed}
+        isPaused={isPaused}
+        onPauseToggle={handlePauseToggle}
       />
 
       {/* Audio Controller */}

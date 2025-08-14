@@ -5,31 +5,31 @@ export const lyricsData: LyricsLine[] = [
   {
     timestamp: 0,
     text: "In this moment of love and light",
-    duration: 3000,
+    duration: 2000,
     color: "#ff69b4"
   },
   {
-    timestamp: 3000,
+    timestamp: 2000,
     text: "Your name echoes through my heart",
-    duration: 3000,
+    duration: 2000,
     color: "#fbbf24"
   },
   {
-    timestamp: 6000,
-    text: "Kaysa, you are my inspiration",
-    duration: 3000,
+    timestamp: 4000,
+    text: "Kaysa, you are my everything",
+    duration: 2000,
     color: "#c084fc"
   },
   {
-    timestamp: 9000,
+    timestamp: 6000,
     text: "Every moment with you is magic",
-    duration: 3000,
+    duration: 2000,
     color: "#00ff41"
   },
   {
-    timestamp: 12000,
+    timestamp: 8000,
     text: "Together we create beautiful memories",
-    duration: 3000,
+    duration: 2000,
     color: "#ff69b4"
   }
 ];

@@ -1,7 +1,7 @@
 export const romanticQuotes = [
   {
     text: "Love is not just looking at each other, it's looking in the same direction together.",
-    author: "Inspired by Antoine de Saint-Exupéry",
+    author: "Classic Love Quote",
     color: "#ff69b4"
   },
   {

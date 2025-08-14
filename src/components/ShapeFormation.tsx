@@ -13,7 +13,7 @@ interface ShapeFormationProps {
 export const ShapeFormation: React.FC<ShapeFormationProps> = ({
   shape,
   isActive = false,
-  duration = 3000,
+  duration = 1500,
   onComplete
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

@@ -18,7 +18,7 @@ export const TextReveal: React.FC<TextRevealProps> = ({
   author,
   isActive = false,
   onComplete,
-  duration = 4000
+  duration = 2000
 }) => {
   const textVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.8 },
@@ -29,11 +29,11 @@ export const TextReveal: React.FC<TextRevealProps> = ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.3, delayChildren: 0.1 }
+      transition: { staggerChildren: 0.15, delayChildren: 0.05 }
     }
   };
 
-  const textTransition = { duration: 0.8, ease: "easeOut" as const };
+  const textTransition = { duration: 0.4, ease: "easeOut" as const };
 
   React.useEffect(() => {
     if (isActive && onComplete) {

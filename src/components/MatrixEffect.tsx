@@ -9,7 +9,7 @@ interface MatrixEffectProps {
 }
 
 export const MatrixEffect: React.FC<MatrixEffectProps> = ({
-  duration = 5000,
+  duration = 2000,
   onComplete,
   isActive = true
 }) => {
@@ -28,17 +28,17 @@ export const MatrixEffect: React.FC<MatrixEffectProps> = ({
     matrixEffectRef.current = new MatrixRainEffect(canvas);
     matrixEffectRef.current.start();
 
-    // Start color transition after 2 seconds
+    // Start color transition after 1 second
     const colorTransitionTimer = setTimeout(() => {
       if (matrixEffectRef.current) {
         matrixEffectRef.current.updateColor('#ff69b4');
       }
-    }, 2000);
+    }, 1000);
 
     // Start fade out before completion
     const fadeTimer = setTimeout(() => {
       setIsVisible(false);
-    }, duration - 1000);
+    }, duration - 500);
 
     // Complete the effect
     const completeTimer = setTimeout(() => {
